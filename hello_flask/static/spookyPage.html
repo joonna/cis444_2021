@@ -2,11 +2,63 @@
 <html>
 <head>
         <!-- head definitions go here -->
-
+<style>
+body {
+  background-image: url("spook.gif");
+  background-repeat: no-repeat;
+  background-color: #ffffff;
+  background-attatchment: fixed;
+  background-size: cover;
+}
+</style>
 
 </head>
-<body style ="background-image: url('/static/spook.gif')">
-<h1>It's spooky time!!!</h1>
+<body>
+<audio controls autoplay>
+  <source src="ghostbuster.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+
+<h2 style = "color:orange;text-align:center;">Time until spooked!</h2>
+
+<!-- Display the countdown timer in an element -->
+<h1 id="Halloween" style = "color:DarkMagenta;text-align:center;"></h1>
+
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("Oct 31, 2021 00:00:00").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="Halloween"
+  document.getElementById("Halloween").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("Halloween").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+
+<img src = "skele1.jpg" style ="width:100px;height:100px;">
+<img src = "skele2.jpg" style ="width:100px;height:100px;" align="right">
+
 </body>
 
 </html>
