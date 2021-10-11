@@ -6,7 +6,7 @@ import datetime
 app = Flask(__name__)
 FlaskJSON(app)
 
-USER_PASSWORDS = { "Joonna": " strong password"}
+USER_PASSWORDS = { "cjardin": " strong password"}
 
 IMGS_URL = {
             "DEV" : "/static",
@@ -18,7 +18,7 @@ CUR_ENV = "PRD"
 
 @app.route('/') #endpoint
 def index():
-    return 'Web App with Python!' + USER_PASSWORDS['Joonna']
+    return 'Web App with Python Caprice!' + USER_PASSWORDS['cjardin']
 
 @app.route('/buy') #endpoint
 def buy():
@@ -46,16 +46,7 @@ def auth():
 #Assigment 2
 @app.route('/ss1') #endpoint
 def ss1():
-    return render_template('server_time.html', server_time= str(datetime.datetime.now()) )
-
-@app.route('/getTime') #endpoint
-def get_time():
-    return json_response(data={"password" : request.args.get('password'),
-                                "class" : "cis44",
-                                "serverTime":str(datetime.datetime.now())
-                            }
-                )
-
+    return render_template('server_time.html', content="BM")
 
 app.run(host='0.0.0.0', port=80)
 
