@@ -6,7 +6,7 @@ import datetime
 app = Flask(__name__)
 FlaskJSON(app)
 
-USER_PASSWORDS = { "cjardin": "strong password"}
+USER_PASSWORDS = { "Joonna": " strong password"}
 
 IMGS_URL = {
             "DEV" : "/static",
@@ -18,7 +18,7 @@ CUR_ENV = "PRD"
 
 @app.route('/') #endpoint
 def index():
-    return 'Web App with Python Caprice!' + USER_PASSWORDS['cjardin']
+    return 'Web App with Python!' + USER_PASSWORDS['Joonna']
 
 @app.route('/buy') #endpoint
 def buy():
