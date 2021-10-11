@@ -46,7 +46,7 @@ def auth():
 #Assigment 2
 @app.route('/ss1') #endpoint
 def ss1():
-    return render_template('server_time.html', content="BM")
+    return render_template('server_time.html', content="The society that separates its scholars from its warriors will have its thinking done by cowards and its fighting by fools.")
 
 app.run(host='0.0.0.0', port=80)
 
