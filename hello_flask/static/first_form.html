@@ -8,41 +8,157 @@
 	<script>
 		function check_form(){
 
-			alert($('#fname').val());
-			alert($('#lname').val());
+			alert($('#uname').val());
+			alert($('#pass').val());
 
-			$('#login').hide();
-			$('#books').show();
-			
-			$('#cars').append('<option value="volvo">Thank you Taco</option>')
-
-
-			return false;
-
-			if($('#fname').val().length == 0){
-				return false;
-			}else{
-				return true;
-			}
+			return true;
 		}
 
 	</script>
+
+	<script>
+		function addUserForm(){
+				$('#login').hide();
+				$('#addNewUser').show();
+				return true;
+			}
+	</script>
+
+	<script>
+		/*$(document).ready(function(){
+			$("#Login").click(loginClicked);
+		});*/
+
+		function loginClicked(){
+			//alert("User sending form");
+			$.ajax({
+				type: "POST",
+				url: "/userAuth",
+				data: $("#loginForm").serialize(),
+				success: function(data)
+				{
+					if(data.jwt == null)
+						alert(data.status + " " + data.msg);
+					else
+					{
+						localStorage.clear();
+						localStorage.setItem('token', data.jwt);
+						//alert("login successful");
+						//alert(data.jwt);
+						$('#login').hide();
+						$('#books').show();
+						showBooks();
+					}
+				}
+			});
+		}
+	</script>
+
+	<script>
+		function newUserConfirm(){
+			alert("New User Created");
+			return true;
+		}
+	</script>
+
+	<script>
+		function showBooks(){
+			$.ajax({
+				type:"GET",
+				url: "/retrieveBooks",
+				headers: {Authorization: localStorage.getItem('token')},
+				success: function(data)
+				{
+					//No auth
+					//alert("retrieveBooks endpoint done")
+					if(data.jwt == null){
+						//alert("data.jwt == null")
+						alert(data.status + " " + data.message);
+					}else{
+						//alert("data.jwt == true")
+						books = data;
+						//alert(books.name[0]);
+						for(var i = 0; i < books.name.length; i++){
+							$('#bookList').append($('<option>',{
+								value: books.name[i],
+								text: 'Title: ' + books.name[i] + ' Price: $' + books.price[i]
+							}));
+						}
+
+						alert("Books retrieved sucessfully");
+					}
+				}
+			});
+		}
+	</script>
+
+	<script>
+		/*$(document).ready(function(){
+			$("#purchaseButton").click(loginClicked);
+		);*/
+		function purchaseBookClicked(){
+
+			alert("Thank you for buying a book");
+
+			//Get name of currently selected book
+			var e = document.getElementById('bookList');
+			var strBook = e.options[e.selectedIndex].value;
+
+			/*var currentTime = new Date($.now());
+			alert(String(currentTime));*/
+			
+
+			$.ajax({
+				type:"POST",
+				url: "/purchaseBook",
+				headers: {Authorization: localStorage.getItem('token')},
+				data: {book: strBook},
+				success: function(data)
+				{
+					if(data.status == null)
+						alert("There was an error in making your purchase");
+				}
+			});
+			//alert(strUser);
+			
+			
+		}		
+	</script>
+
+
             <div id="login">
-	    	<form action="/backp" method="post">
-  			<label for="fname">First name:</label><br>
-  				<input type="text" id="fname" name="fname" value="John"><br>
-  			<label for="lname">Last name:</label><br>
-  				<input type="password" id="lname" name="lname" value="Doe"><br><br>
-  			<input type="submit" value="Signup" onclick="return check_form();">
+	    	<form id="loginForm">
+  			<label for="uname">Username:</label><br>
+  				<input type="text" id="uname" name="uname" value="John"><br>
+  			<label for="pass">Password:</label><br>
+  				<input type="password" id="pass" name="pass" value="Doe"><br><br>
+  			<input type="button" value="Login" id="Login" onclick="loginClicked();">
+			<input type="button" value="Create New User" onclick="return addUserForm();">
 		</form>
 	    </div>
 
-	    <div id="books" style="display:none">
-		    <h1>Buy me</h1>
-		    <select name="cars" id="cars">
+	<div id="addNewUser" style = "display:none">
+		<form action = "/createNewUser" method="POST">
+			<label for="uname">New Username:</label><br>
+				<input type="text" id="uname" name="uname" value="John"><br>
+			<label for="pass">New Password:</label><br>
+				<input type="password" id="pass" name="pass" value="Doe"><br><br>
+			<input type="submit" value="Submit" onclick="return newUserConfirm();">
+		</form>
+	</div>
 
-  		    </select>
+	    <div id="books" style="display:none">
+		<form id="bookDisplay">
+			<h1>Buy me</h1>
+			<select name="bookList" id="bookList"></select><br>
+			<input type="button" value="Purchase Book" id="purchaseButton" onclick="purchaseBookClicked();">	
+		</form>
+		
 	    </div>
+
+	<div>
+	
+	</div>
 
     </body>
 </html>
