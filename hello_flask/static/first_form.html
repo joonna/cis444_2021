@@ -1,16 +1,170 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- head definitions go here -->
+	     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     </head>
     <body>
-	    <form action="/backp" method="post">
-  			<label for="fname">First name:</label><br>
-  				<input type="text" id="fname" name="fname" value="John"><br>
-  			<label for="lname">Last name:</label><br>
-  				<input type="text" id="lname" name="lname" value="Doe"><br><br>
-  			<input type="submit" value="Submit">
-	</form>
+	
+	<script>
+	function getBookList()
+	{
+		$.getJSON("/store", function(books){
+			console.log(books);
+			for( i = 0; i < books.bookList.length; i++)
+				{
+					book = books.bookList[i][0];
+					author = books.bookList[i][1];
+					$('#bookSelection').append(`<option value="book ${i}">
+                                 	      ${book}
+                                 		 </option>`);
+				}
+		});
+	}	
+	
+
+
+	async function catchJSON()
+		{
+			loginJSON = await $.post("/login", {username: $('#username').val(),
+				password: $('#password').val()});
+			console.log(loginJSON);
+			if(loginJSON == '403'){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+
+
+	function check_form(){
+		var usrCheck = check_user($('#username').val());
+		var passCheck = check_pass($('#password').val());
+			
+
+		if(usrCheck && passCheck){
+			catchJSON().then(auth => {
+				if(auth){
+					showBooks();
+                                	return true;
+				}
+				else{
+					alert('User could not be Authenticated. Please try again or make an account.');
+                                	return false;
+				}
+			})
+		}
+		else{
+			alert('Password does not fit criteria');
+		}
+	}
+		
+	async function catchSignup( )
+                {
+                        signupJSON = await $.post("/signup", {username: $('#SignupUsername').val(),
+				password: $('#SignupPassword').val()})
+			return true;
+                }
+
+	 function check_signup(){
+                        var usrCheck = check_user($('#SignupUsername').val());
+                        var passCheck = check_pass($('#SignupPassword').val());
+
+                        if(usrCheck && passCheck){
+                               if(catchSignup())
+				{
+				alert("You have successfully signed up!");
+				 showBooks();
+                                return true;
+				}
+                        else{
+                                alert('User already exists.');
+                                return false;
+                        }
+                }
+	 }
+
+
+                function check_user(x){
+                        if( x.length > 3)
+                        {
+
+                                return true;
+                        }
+                        else
+                        {
+                                return false;
+                        }
+                }
+
+        function check_pass(x){
+               	if( x.length > 8){
+                 	return true;
+                }
+		else{
+                	return false;
+                }
+         }
+	 
+	async function purchaseBook(){	
+		var selectedBook = $('#bookSelection').find(":selected").text();
+		if(typeof loginJSON !== 'undefined')
+		{
+			receipt = await $.post("/purchase", {jwt: loginJSON,
+				book: selectedBook});
+		}	
+
+		else if(typeof signupJSON !== 'undefined')
+		{
+			receipt = await $.post("/purchase", {jwt: $('#signupJSON').val(),
+				book: $('#selectedBook').val()});
+		}
+		else{
+			alert("User could not be authenticated, please log back in or sign up.");
+	
+		}	
+	}
+
+	function showBooks()
+	{
+		 $('#login').hide();
+                 $('#signup').hide();
+                 getBookList();
+                 $('#booksDiv').show();
+                 $('#purchaseButton').show();
+	}
+
+
+
+	</script>
+            <div id="login">  
+  			<label for="username">Username:</label><br>
+  				<input type="text" id="username" name="username" value="John"><br>
+  			<label for="password">Password:</label><br>
+  				<input type="password" id="password" name="password" value=""><br><br>
+  			<input type="submit" value="login" onclick="return check_form()">
+	
+	    </div>
+
+	<div id="signup">
+		<h1> Don't have an account? Sign up below! </h1>
+
+		<label for="username">Username:</label><br>
+                                <input type="text" id="SignupUsername" name="SignupUsername" value="John"><br>
+                        <label for="password">Password:</label><br>
+                                <input type="password" id="SignupPassword" name="SignupPassword" value=""><br><br>
+                        <input type="submit" value="Sign Up!" onclick="return check_signup();">
+	</div>
+
+	<div id="booksDiv" display: hidden>
+		<select name="bookSelection" id="bookSelection"></select>
+	</div>	
+		
+	<div id="purchaseButton" display: hidden>
+		<input type="submit" value="Purchase book" onclick="return purchaseBook();">
+	</div>
+		
+	
 
     </body>
 </html>
