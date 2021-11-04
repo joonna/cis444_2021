@@ -3,6 +3,17 @@
     <head>
         <!-- head definitions go here -->
     </head>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+	    var JWTToken = JSON.parse('{{jwt | tojson | safe}}');
+		console.log(JWTToken);
+    </script>
+
+	<script>
+
+ 	</script>
+
     <body>
 	    <h1>You Said!</h1>
 	    <h2>{{input_from_browser}}</h2>
