@@ -20,9 +20,9 @@ def handle_request():
     message = '{"books":['
     for b in booklist:
         if b[0] < len(booklist) :
-            message += '{"name":"'+str(b[1]) + '","price":"' + str(b[2]) + '"},'
+            message += '{"title":"'+str(b[1]) + '","price":"' + str(b[2]) + '"},'
         else:
-            message += '{"name":"'+str(b[1]) + '","price":"' + str(b[2]) + '"}'
+            message += '{"title":"'+str(b[1]) + '","price":"' + str(b[2]) + '"}'
     message += "]}"
     print(message)
     return json_response( token = create_token(  g.jwt_data ) , data = json.loads(message))
