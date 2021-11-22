@@ -25,7 +25,7 @@ def handle_request():
         logger.debug("User already Exists!")
         return json_response( data={"message": "Username already Exists: " + request.form['username']}, status = 404)
     else:
-        print("in else statement!")
+        #print("in else statement!")
         #salt password for new user
         salt_bae = bcrypt.hashpw(bytes(password_from_user_form, "utf-8"), bcrypt.gensalt(10))
         logger.debug(salt_bae)
