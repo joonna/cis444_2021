@@ -26,7 +26,7 @@ def handle_request():
         logger.debug("No User")
         return json_response( data={"message": "Invalid user name: " + str(request.form['username'])}, status = 404)
     else:
-        #print("else statement")
+        #print("in else statement")
         if bcrypt.checkpw(bytes(request.form['password'], "utf-8"), bytes(dbcred[2], "utf-8")) == True:
             logger.debug("Successful Login, : " + str(request.form['username']))
 
@@ -40,5 +40,5 @@ def handle_request():
     if not user:
         return json_response(status_=401, message = 'Invalid credentials', authenticated =  False )
 
-    return json_response( token = create_token(user) , authenticated = True)
+    return json_response( token = create_token(user) , authenticated = False)
 
