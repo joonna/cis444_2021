@@ -4,17 +4,229 @@
 	     <script src="https://code.jquery.com/jquery-3.6.0.js" 
 		     integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	     <script src="/static/cis444.js"></script>
+<style>
+	        @import url('https://fonts.googleapis.com/css2?family=Martel&display=swap');
+                body{
+                        background-image: url(https://wallpaperaccess.com/full/1127811.jpg);
+                        background-repeat: no-repeat;
+                        background-attachment:fixed;
+                        background-position: cover;
+                        margin: 0;
+                        padding: 0;
+                        font-family: 'Arial';
+                        background-color: white;
+                        text-align: center;
+                        font-family: 'Martel';
+                        text-shadow: 2px 2px  red;
+                        font-size: 55px;
+                }
+                svg{
+                        display: center;
+                        margin-left:auto;
+                        margin-right: auto;
+                        line-size: 5;
+                }
+                #loginContainer{
+                        visibility: visible;
+                        position: absolute;
+                        left:50%;
+                        top:50%;
+                        transform:translate(-50%, -10%);
+                        width:350px;
+                        overflow: hidden;
+                        display: center top;
+                        margin-top:auto;
+                        margin-left: auto;
+                        margin-right: auto;
+                        background: brown;
+                        padding: 80px;
+                        border-radius: 10px;
+                        font-size: 30px;
+                }
+                label{
+                        font-size: 50px;
+                }
+ 		#signup{
+                        visibility: hidden;
+                        position: absolute;
+                        left:50%;
+                        top:50%;
+                        transform:translate(-50%, -10%);
+                        width:350px;
+                        overflow: hidden;
+                        display: center top;
+                        margin-top:auto;
+                        margin-left: auto;
+                        margin-right: auto;
+                        background: white;
+                        padding: 80px;
+                        border-radius: 10px;
+                        font-size: 30px;
+                }
+                .bookstore {
+                        position: absolute;
+                        left:50%;
+                        top:50%;
+                        transform:translate(-50%, 0%);
+                        overflow: hidden;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        margin-top:auto;
+                        margin-left: auto;
+                        display: grid;
+                        grid-gap: 10px;
+                        align-content: space-evenly;
+                        background-color: #90EE90;
+                        padding: 10px;
+                        text-align: center;
+                        border-radius: 12px;
+
+                }
+                .bookstore *{
+                        justify-content: center;
+                }
+		#bookstore > div {
+                        background-color: white;
+                        border: 1px solid grey;
+                        text-align: center;
+                        font-size: 30px;
+                        border-radius: 10px;
+                }
+                .button{
+                        font-family: 'Arial';
+                        font-family: 'Martel';
+                        text-align: center;
+                        font-size: 30px;
+                        color: white;
+                        background-color: black;
+                        border-radius: 12px;
+
+                }
+
+                td{
+                        text-align: center;
+                }
+
+                #button:hover {background-color: grey}
+
+                #book1{
+                        font-family: 'Arial';
+                        font-family: 'Martel';
+                        text-align: center;
+                        margin-left: auto;
+                        margin-right: auto;
+                        color: red;
+                        background-color: black;
+                        width: 500px;
+                        justify-content: center;
+                }
+                #book2{
+                        font-family: 'Arial';
+                        font-family: 'Martel';
+                        text-align: center;
+                        margin-left: auto;
+                        margin-right: auto;
+                        color: red;
+                        background-color: black;
+                        width: 500px;
+
+                }
+				#book3{
+                        font-family: 'Arial';
+                        font-family: 'Martel';
+                        text-align: center;
+                        margin-left: auto;
+                        margin-right: auto;
+                        color: red;
+                        background-color: black;
+                        width: 500px;
+                }
+
+
+
+                #table-cart{
+                        text-align:center;
+                        position: absolute;
+                        left:50%;
+                        top:50%;
+                        transform:translate(-50%, 0%);
+                        width:550px;
+                        overflow: hidden;
+                        display: center top;
+                        margin-top:auto;
+                        margin-left: auto;
+                        margin-right: auto;
+                        background: white;
+                        padding: 80px;
+                        border-radius: 10px;
+                        font-size: 30px;
+
+                }
+                #table-cart #price{
+                        text-align:right;
+                }
+
+</style>
     </head>
     <body>
+	<svg viewBox="0 0 500 500">
+    <path id="curve" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" />
+    <text width="500">
+      <textPath xlink:href="#curve">
+         The Book Store
+      </textPath>
+    </text>
+  </svg>
+ 	<div id = "loginContainer">
+                <label for="logintext">Login</label><br><br>
+                       <label for="username">Username:</label><br>
+                             <input type="text" id="username" name="username" value=""><br>
+                                <label for="password">Password:</label><br>
+                                       <input type="password" id="password" name="password" value=""><br><br>
+                                       <input type="submit" value="Login" class="button" onclick = "login(); return false"><br>
+                                       <label for"or" value="or"><br>
+                                <input type="submit" value="Sign Up" class="button" onclick= "signup(); return false">
+        </div>
+ 	</div>
+                <div class = "bookstore" id ="bookstore">
+                        <h1 for "bookstr">Get a Book!</h1><br><br>
+                        <button id = "book1" onclick="buybook('The History of the Peloponnesian War')"><img src="https://images-na.ssl-images-amazon.com/images/I/511MozZPYeL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg"></button>
+                        <button id = "book2" onclick="buybook('The Electric Kool-Aid Acid Test')"><img src ="https://m.media-amazon.com/images/I/61FrIfgE4rL.jpg"></button>
+                        <button id = "book3" onclick="buybook('The Art of War')"><img src="https://images-na.ssl-images-amazon.com/images/I/51nfkb3NHwL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg"></button>
+                        <button id ="cartbtn" onclick ="showCart()">go to cart</button>
+                </div>
+
+                <div id= "table-cart">
+
+                        <table id="cart">
+                                <tbody>
+                                        <h1> Your Books</h1><br><br>
+
+                                        <tr>
+                                                <td>Title</td>
+                                                <td></td>
+                                                <td id=price>Price</td>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                </tbody>
+                        </table>
+                </div>
 
 	<script>
-		function send_form(){
-			$.post("/open_api/login", { "firstname":$('#fname').val(), "password":$('#password').val()},
+
+		$('#table-cart').hide();
+                $('#bookstore').hide();
+
+		function login(){
+			$.post("/open_api/login", { "username":$('#username').val(), "password":$('#password').val()},
                        		function(data, textStatus) {
 					//this gets called when browser receives response from server
 					console.log(data.token);
 					//Set global JWT
 					jwt = data.token;
+
 					//make secure call with the jwt
 					get_books();
 				}, "json").fail( function(response) {
@@ -25,32 +237,87 @@
 			return false;
 		}
 
+
+		function signup(){
+                        $.post("/open_api/signup", { "username":$('#username').val(), "password":$('#password').val()},
+                                function(data, textStatus) {
+                                        //this gets called when browser receives response from server
+                                        console.log(data.token);
+                                        //Set global JWT
+                                        jwt = data.token;
+
+                                        //make secure call with the jwt
+                                        get_books();
+                                }, "json").fail( function(response) {
+                                        //this gets called if the server throws an error
+                                        console.log("error");
+                                        console.log(response);
+                                });
+                        return false;
+                }
+
+
 		function get_books(){
+			$('#loginContainer').hide();
+			console.log("inside get_books")
 			 //make secure call with the jwt
-			secure_get_with_token("/secure_api/get_books", {} , function(data){
-					console.log("got books"); 
-					console.log(data); 
-					$('#buybook').show();
-					},
+                         secure_get_with_token("/secure_api/get_books", 
+				 function(data){
+					 console.log("got data")
+				 console.log("got books"); 
+					 console.log(data);
+					 for(var i = 0; i < data.length; i++){
+						 console.log("inside loop")
+						 
+                                              $("#book"+(i+1)).append("<tr><td>" + data.data.books[i].title +
+                                                      "</td></tr><tr><td>" + data.data.books[i].price + "</td></tr>");
+                                                }
+                                                $('#bookstore').show();
+
+				 },
                                                 function(err){ console.log(err) });
 		}
-                function buy_book(book_id){
+
+		 function showCart(){
+                        $('#bookstore').hide();
+
                          //make secure call with the jwt
-                        secure_get_with_token("/secure_api/get_books", {"book_id" : book_id} , function(data){console.log("got books"); console.log(data)},
+                         secure_get_with_token("/secure_api/get_cart",
+                                 function(data){
+                                 console.log("got cart");
+                                         console.log(data);
+					 console.log(data.data.purchases);
+                                         table = document.getElementById("cart");
+			
+                                        for(var i = 0; i < Object.keys(data.data.purchases).length; i++){
+				         	console.log("inside loop");
+                                               row = table.insertRow(i+1);
+                                               cell1 = row.insertCell(0);
+                                               cell2= row.insertCell(1);
+                                               cell1.innerHTML = data.data.purchases[i].title;
+                                               cell2.innerHTML = data.data.purchases[i].price;
+                                        }
+                                                $('#table-cart').show();
+
+
+                                 },
                                                 function(err){ console.log(err) });
                 }
 
+
+		function buybook(title){
+
+			 //make secure call with the jwt
+                        secure_get_with_data("/secure_api/make_purchase", {"title" : title} , 
+				function(data){
+					console.log("purchased books"); 
+					console.log(data)},
+
+                                                function(err){ console.log(err) });
+
+                        }
+
 	</script>
-            <div id="login">
-	    	<form >
-  			<label for="fname">First name:</label><br>
-  				<input type="text" id="fname" name="fname" value="John"><br>
-  			<label for="password">Password:</label><br>
-  				<input type="password" id="password" name="password" value="12212"><br><br>
-  			<input type="submit" value="Signup" onclick="return send_form();">
-		</form>
-	    </div>
-	    <button id="buybook" onclick="buy_book(1234)" style="display:none" >Buy Book</button>
     </body>
 </html>
 
