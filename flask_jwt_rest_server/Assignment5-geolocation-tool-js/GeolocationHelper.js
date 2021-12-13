@@ -199,9 +199,6 @@ var GeolocationHelper = function(/* Object */ filters) {
         dist = dist * 180/Math.PI;
         dist = dist * 60 * 1.1515;
         dist = dist * 1.609344 * 1000; // return meters
-        //if (unit=="K") { dist = dist * 1.609344 };
-        //if (unit=="N") { dist = dist * 0.8684 };
-
         // Check for valid values
         isNaN(dist) ? dist = 0 : dist;
 
@@ -240,7 +237,6 @@ var GeolocationHelper = function(/* Object */ filters) {
     };
 
     /**
-     * All credits to: https://gist.github.com/caseyjustus/1166258
      * @param array
      * @returns {*}
      */
